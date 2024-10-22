@@ -61,6 +61,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Script\Tts.cs" />
+    <Compile Include="Assets\Script\GameManager.cs" />
+    <Compile Include="Assets\Script\ControladorPorVoz.cs" />
+    <Compile Include="Assets\Script\Campaign.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Interop.SpeechLib.dll" />
