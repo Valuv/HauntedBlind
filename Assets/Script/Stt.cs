@@ -23,7 +23,8 @@ public class Stt : MonoBehaviour
         wordToAction.Add("izquierda", Left);
         wordToAction.Add("derecha", Rigth);
         wordToAction.Add("rojo", Red);
-        wordToAction.Add("abrir puerta izquierda", Up);
+        wordToAction.Add("adelante", Up);
+        wordToAction.Add("atars", Down);
         wordToAction.Add("coger llave", Key);
 
         keywordRecognizer = new KeywordRecognizer(wordToAction.Keys.ToArray());
@@ -41,8 +42,14 @@ public class Stt : MonoBehaviour
 
     private void Up()
     {
-        transform.Translate(0, 1, 0);
+        transform.Translate(0, 0, 1);
         GameManager.gameManager.palabrasDetectadas = Palabras.Adelante;
+    }
+
+    private void Down()
+    {
+        transform.Translate(0, 0, -1);
+        GameManager.gameManager.palabrasDetectadas = Palabras.Atras;
     }
 
     private void Red()
@@ -57,23 +64,15 @@ public class Stt : MonoBehaviour
 
     private void Left()
     {
-        transform.Translate(1, 0, 0);
+        transform.Translate(-1, 0, 0);
         GameManager.gameManager.palabrasDetectadas = Palabras.Izquierda;
     }
 
     private void Rigth()
     {
-        transform.Translate(-1, 0, 0);
+        transform.Translate(1, 0, 0);
         GameManager.gameManager.palabrasDetectadas = Palabras.Derecha;
     }
 
-    void Update()
-    {
-        if(lastAnswer != null)
-        {
-            Debug.Log(lastAnswer);
-        }
-        
-    }
 
 }
