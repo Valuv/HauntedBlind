@@ -18,6 +18,7 @@ public class Stt : MonoBehaviour
     void Start()
     {
         wordToAction = new Dictionary<string, Action>();
+
         //Los Adds son para añadir acciones según la frase
         wordToAction.Add("izquierda", Left);
         wordToAction.Add("derecha", Rigth);
@@ -41,6 +42,7 @@ public class Stt : MonoBehaviour
     private void Up()
     {
         transform.Translate(0, 1, 0);
+        GameManager.gameManager.palabrasDetectadas = Palabras.Adelante;
     }
 
     private void Red()
@@ -56,11 +58,13 @@ public class Stt : MonoBehaviour
     private void Left()
     {
         transform.Translate(1, 0, 0);
+        GameManager.gameManager.palabrasDetectadas = Palabras.Izquierda;
     }
 
     private void Rigth()
     {
         transform.Translate(-1, 0, 0);
+        GameManager.gameManager.palabrasDetectadas = Palabras.Derecha;
     }
 
     void Update()
