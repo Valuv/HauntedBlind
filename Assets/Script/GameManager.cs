@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using SpeechLib;
 
 public class GameManager : MonoBehaviour
@@ -8,7 +9,6 @@ public class GameManager : MonoBehaviour
     public static GameManager gameManager;
     public Campaign campana;
     public GameObject prRoom;
-    public string js;
 
     public Palabras palabrasDetectadas;
     private Habitacion habitacionActual;
@@ -16,27 +16,51 @@ public class GameManager : MonoBehaviour
     private Dictionary<int, bool> habitacionesVisitadas = new Dictionary<int, bool>(); // Diccionario para rastrear visitas
 
     public SpVoice voice = new SpVoice();
-    
+    private string apiUrl = "http://localhost/get_level_data.php?level_id=";
+
     private void Start()
     {
-        if(gameManager == null)
+        if (gameManager == null)
         {
             gameManager = this;
         }
 
-        StartCoroutine(Jugando());
+        int levelId = 1; // Ejemplo: cargar el nivel 1
+        StartCoroutine(CargarNivel(levelId));
     }
 
     public void CrearJSON()
     {
-        Debug.Log(JsonUtility.ToJson(campana));
+        if (campana != null)
+        {
+            string json = JsonUtility.ToJson(campana, true);
+            Debug.Log(json);
+        }
+        else
+        {
+            Debug.LogWarning("Campaña no cargada. No se puede crear JSON.");
+        }
+    }
+
+    IEnumerator CargarNivel(int levelId)
+    {
+        UnityWebRequest request = UnityWebRequest.Get(apiUrl + levelId);
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
+        {
+            Debug.LogError("Error al obtener los datos del nivel: " + request.error);
+        }
+        else
+        {
+            string jsonResponse = request.downloadHandler.text;
+            campana = JsonUtility.FromJson<Campaign>(jsonResponse);
+            StartCoroutine(Jugando());
+        }
     }
 
     IEnumerator Jugando()
     {
-        // Deserializar la campaña desde JSON
-        campana = JsonUtility.FromJson<Campaign>(js);
-        
         // Instanciar solo habitaciones con descript_large
         foreach (var habitacion in campana.habitaciones)
         {
@@ -54,11 +78,11 @@ public class GameManager : MonoBehaviour
 
         // Marcar la habitación inicial como visitada
         habitacionesVisitadas[habitacionActual.id] = true;
-        
+
         yield return new WaitForSeconds(13f);
-        
+
         palabrasDetectadas = Palabras.Nada;
-        
+
         while (true)
         {
             print("Ahora si, pregunta");
@@ -67,40 +91,37 @@ public class GameManager : MonoBehaviour
                 case Palabras.Nada:
                     break;
                 case Palabras.Izquierda:
-                    MoverJugador(-1, 0); 
+                    MoverJugador(-1, 0);
                     break;
                 case Palabras.Derecha:
-                    MoverJugador(1, 0); 
+                    MoverJugador(1, 0);
                     break;
                 case Palabras.Adelante:
-                    MoverJugador(0, 1); 
+                    MoverJugador(0, 1);
                     break;
                 case Palabras.Atras:
-                    MoverJugador(0, -1); 
+                    MoverJugador(0, -1);
                     break;
                 default:
                     break;
             }
 
-            palabrasDetectadas = Palabras.Nada; 
+            palabrasDetectadas = Palabras.Nada;
             yield return new WaitForSeconds(0.5f);
         }
     }
 
     void MoverJugador(int x, int y)
     {
-  
         int nuevoX = habitacionActual.posx + x;
         int nuevoY = habitacionActual.posy + y;
 
         Habitacion nuevaHabitacion = GetHabitacion(nuevoX, nuevoY);
 
-      
         if (nuevaHabitacion != null && !string.IsNullOrEmpty(nuevaHabitacion.descript_large))
         {
             habitacionActual = nuevaHabitacion;
 
-            
             if (habitacionesVisitadas.ContainsKey(habitacionActual.id))
             {
                 // Ya fue visitada
@@ -140,7 +161,7 @@ public class GameManager : MonoBehaviour
 public enum Palabras
 {
     Nada,
-    Izquierda, 
+    Izquierda,
     Derecha,
     Adelante,
     Atras,
