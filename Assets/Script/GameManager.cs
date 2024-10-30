@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public Campaign campana;
     public GameObject prRoom;
     public string js;
+    public bool[] switches;
 
     public Palabras palabrasDetectadas;
     private Habitacion habitacionActual;
@@ -23,6 +24,9 @@ public class GameManager : MonoBehaviour
         {
             gameManager = this;
         }
+
+        switches = new bool[20];
+        switches[0] = true; 
 
         StartCoroutine(Jugando());
     }
@@ -67,16 +71,100 @@ public class GameManager : MonoBehaviour
                 case Palabras.Nada:
                     break;
                 case Palabras.Izquierda:
-                    MoverJugador(-1, 0); 
+                    bool mover = false;
+                    for (int i = 0; i < habitacionActual.puertas.Length; i++)
+                    {
+                        if (habitacionActual.puertas[i].pos == 2)
+                        {
+                            if (switches[habitacionActual.puertas[i].switche])
+                            {
+                                Speak(habitacionActual.puertas[i].descript_true);
+                                yield return new WaitForSeconds(4f);
+                                MoverJugador(-1, 0);
+                                mover = true;
+                                break;
+                            } else
+                            {
+                                Speak(habitacionActual.puertas[i].descript_false);
+                            }
+                        }
+                    }
+                    if(!mover)
+                    {
+                        Speak("Ahí no hay puerta, intenta moverte hacia otra dirección");
+                    }
                     break;
                 case Palabras.Derecha:
-                    MoverJugador(1, 0); 
+                    mover = false;
+                    for (int i = 0; i < habitacionActual.puertas.Length; i++)
+                    {
+                        if (habitacionActual.puertas[i].pos == 1)
+                        {
+                            if (switches[habitacionActual.puertas[i].switche])
+                            {
+                                Speak(habitacionActual.puertas[i].descript_true);
+                                yield return new WaitForSeconds(4f);
+                                MoverJugador(1, 0);
+                                mover = true;
+                                break;
+                            } else
+                            {
+                                Speak(habitacionActual.puertas[i].descript_false);
+                            }
+                        }
+                    }
+                    if(!mover)
+                    {
+                        Speak("Ahí no hay puerta, intenta moverte hacia otra dirección");
+                    }
                     break;
                 case Palabras.Adelante:
-                    MoverJugador(0, 1); 
+                    mover = false;
+                    for (int i = 0; i < habitacionActual.puertas.Length; i++)
+                    {
+                        if (habitacionActual.puertas[i].pos == 3)
+                        {
+                            if (switches[habitacionActual.puertas[i].switche])
+                            {
+                                Speak(habitacionActual.puertas[i].descript_true);
+                                yield return new WaitForSeconds(4f);
+                                MoverJugador(0, 1);
+                                mover = true;
+                                break;
+                            } else
+                            {
+                                Speak(habitacionActual.puertas[i].descript_false);
+                            }
+                        }
+                    }
+                    if(!mover)
+                    {
+                        Speak("Ahí no hay puerta, intenta moverte hacia otra dirección");
+                    }
                     break;
                 case Palabras.Atras:
-                    MoverJugador(0, -1); 
+                    mover = false;
+                    for (int i = 0; i < habitacionActual.puertas.Length; i++)
+                    {
+                        if (habitacionActual.puertas[i].pos == 0)
+                        {
+                            if (switches[habitacionActual.puertas[i].switche])
+                            {
+                                Speak(habitacionActual.puertas[i].descript_true);
+                                yield return new WaitForSeconds(4f);
+                                MoverJugador(0, -1);
+                                mover = true;
+                                break;
+                            } else
+                            {
+                                Speak(habitacionActual.puertas[i].descript_false);
+                            }
+                        }
+                    }
+                    if(!mover)
+                    {
+                        Speak("Ahí no hay puerta, intenta moverte hacia otra dirección");
+                    }
                     break;
                 default:
                     break;
@@ -144,4 +232,5 @@ public enum Palabras
     Derecha,
     Adelante,
     Atras,
+    Llave
 }
