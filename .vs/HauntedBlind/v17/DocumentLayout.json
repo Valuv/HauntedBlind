@@ -7,7 +7,7 @@
       "RelativeMoniker": "D:0:0:{693BAD21-C074-CCF8-D459-260B1F36A9BF}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D71FA034-D5B9-4F14-A8C0-C529AC61CEA3}|Assembly-CSharp-Editor.csproj|d:\\documentos\\proyectosunity\\hauntedblind\\assets\\editor\\gamemanagereditor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{D71FA034-D5B9-4F14-A8C0-C529AC61CEA3}|Assembly-CSharp-Editor.csproj|D:\\Documentos\\ProyectosUnity\\HauntedBlind\\assets\\editor\\gamemanagereditor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D71FA034-D5B9-4F14-A8C0-C529AC61CEA3}|Assembly-CSharp-Editor.csproj|solutionrelative:assets\\editor\\gamemanagereditor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -32,7 +32,7 @@
               "RelativeDocumentMoniker": "Assets\\Editor\\GameManagerEditor.cs",
               "ToolTip": "D:\\Documentos\\ProyectosUnity\\HauntedBlind\\Assets\\Editor\\GameManagerEditor.cs",
               "RelativeToolTip": "Assets\\Editor\\GameManagerEditor.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-28T22:39:44.827Z",
               "EditorCaption": ""
@@ -45,7 +45,7 @@
               "RelativeDocumentMoniker": "Assets\\Script\\GameManager.cs",
               "ToolTip": "D:\\Documentos\\ProyectosUnity\\HauntedBlind\\Assets\\Script\\GameManager.cs",
               "RelativeToolTip": "Assets\\Script\\GameManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAcAAAAAAAAAA==",
+              "ViewState": "AgIAAFMAAAAAAAAAAAAwwHEAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-22T17:18:31.746Z",
               "EditorCaption": ""
@@ -60,8 +60,7 @@
               "RelativeToolTip": "Assets\\Script\\Campaign.cs",
               "ViewState": "AgIAACYAAAAAAAAAAAAAADcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-22T17:08:32.108Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-22T17:08:32.108Z"
             }
           ]
         }

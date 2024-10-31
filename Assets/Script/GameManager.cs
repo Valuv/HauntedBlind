@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     private Dictionary<int, bool> habitacionesVisitadas = new Dictionary<int, bool>(); // Diccionario para rastrear visitas
 
     public SpVoice voice = new SpVoice();
-    private string apiUrl = "http://localhost/get_level_data.php?level_id=";
+    private string apiUrl = "http://localhost/get_level_data.php?campaign_id=";
 
     private void Start()
     {
@@ -25,31 +25,18 @@ public class GameManager : MonoBehaviour
             gameManager = this;
         }
 
-        int levelId = 1; // Ejemplo: cargar el nivel 1
-        StartCoroutine(CargarNivel(levelId));
+        int campaignId = 1; // Ejemplo: cargar la campaña 1
+        StartCoroutine(CargarCampana(campaignId));
     }
 
-    public void CrearJSON()
+    IEnumerator CargarCampana(int campaignId)
     {
-        if (campana != null)
-        {
-            string json = JsonUtility.ToJson(campana, true);
-            Debug.Log(json);
-        }
-        else
-        {
-            Debug.LogWarning("Campaña no cargada. No se puede crear JSON.");
-        }
-    }
-
-    IEnumerator CargarNivel(int levelId)
-    {
-        UnityWebRequest request = UnityWebRequest.Get(apiUrl + levelId);
+        UnityWebRequest request = UnityWebRequest.Get(apiUrl + campaignId);
         yield return request.SendWebRequest();
 
         if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
         {
-            Debug.LogError("Error al obtener los datos del nivel: " + request.error);
+            Debug.LogError("Error al obtener los datos de la campaña: " + request.error);
         }
         else
         {
@@ -61,7 +48,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator Jugando()
     {
-        // Instanciar solo habitaciones con descript_large
+        // Instanciar habitaciones con descript_large
         foreach (var habitacion in campana.habitaciones)
         {
             if (!string.IsNullOrEmpty(habitacion.descript_large))
@@ -110,6 +97,19 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
     }
+    public void CrearJSON()
+    {
+        if (campana != null)
+        {
+            string json = JsonUtility.ToJson(campana, true);
+            Debug.Log(json);
+        }
+        else
+        {
+            Debug.LogWarning("Campaña no cargada. No se puede crear JSON.");
+        }
+    }
+
 
     void MoverJugador(int x, int y)
     {
