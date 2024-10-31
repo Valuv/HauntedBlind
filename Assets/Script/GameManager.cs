@@ -12,11 +12,13 @@ public class GameManager : MonoBehaviour
 
     public Palabras palabrasDetectadas;
     private Habitacion habitacionActual;
+    public string js;
+    public bool[] switches;
 
     private Dictionary<int, bool> habitacionesVisitadas = new Dictionary<int, bool>(); // Diccionario para rastrear visitas
 
     public SpVoice voice = new SpVoice();
-    private string apiUrl = "http://localhost/get_level_data.php?level_id=";
+    public string apiUrl = "http://localhost/get_level_data.php?campaign_id=";
 
     private void Start()
     {
@@ -24,32 +26,21 @@ public class GameManager : MonoBehaviour
         {
             gameManager = this;
         }
+        switches = new bool[20];
+        switches[0] = true;
 
-        int levelId = 1; // Ejemplo: cargar el nivel 1
-        StartCoroutine(CargarNivel(levelId));
+        int campaignId = 1; // Ejemplo: cargar la campaña 1
+        StartCoroutine(CargarCampana(campaignId));
     }
 
-    public void CrearJSON()
+    IEnumerator CargarCampana(int campaignId)
     {
-        if (campana != null)
-        {
-            string json = JsonUtility.ToJson(campana, true);
-            Debug.Log(json);
-        }
-        else
-        {
-            Debug.LogWarning("Campaña no cargada. No se puede crear JSON.");
-        }
-    }
-
-    IEnumerator CargarNivel(int levelId)
-    {
-        UnityWebRequest request = UnityWebRequest.Get(apiUrl + levelId);
+        UnityWebRequest request = UnityWebRequest.Get(apiUrl + campaignId);
         yield return request.SendWebRequest();
 
         if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
         {
-            Debug.LogError("Error al obtener los datos del nivel: " + request.error);
+            Debug.LogError("Error al obtener los datos de la campaña: " + request.error);
         }
         else
         {
@@ -61,7 +52,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator Jugando()
     {
-        // Instanciar solo habitaciones con descript_large
+        // Instanciar habitaciones con descript_large
         foreach (var habitacion in campana.habitaciones)
         {
             if (!string.IsNullOrEmpty(habitacion.descript_large))
@@ -91,20 +82,109 @@ public class GameManager : MonoBehaviour
                 case Palabras.Nada:
                     break;
                 case Palabras.Izquierda:
-                    MoverJugador(-1, 0);
+                    bool mover = false;
+                    for (int i = 0; i < habitacionActual.puertas.Length; i++)
+                    {
+                        if (habitacionActual.puertas[i].pos == 2)
+                        {
+                            if (switches[habitacionActual.puertas[i].switche])
+                            {
+                                Speak(habitacionActual.puertas[i].descript_true);
+                                yield return new WaitForSeconds(4f);
+                                MoverJugador(-1, 0);
+                                mover = true;
+                                break;
+                            }
+                            else
+                            {
+                                Speak(habitacionActual.puertas[i].descript_false);
+                            }
+                        }
+                    }
+                    if (!mover)
+                    {
+                        Speak("Ahí no hay puerta, intenta moverte hacia otra dirección");
+                    }
                     break;
                 case Palabras.Derecha:
-                    MoverJugador(1, 0);
+                    mover = false;
+                    for (int i = 0; i < habitacionActual.puertas.Length; i++)
+                    {
+                        if (habitacionActual.puertas[i].pos == 1)
+                        {
+                            if (switches[habitacionActual.puertas[i].switche])
+                            {
+                                Speak(habitacionActual.puertas[i].descript_true);
+                                yield return new WaitForSeconds(4f);
+                                MoverJugador(1, 0);
+                                mover = true;
+                                break;
+                            }
+                            else
+                            {
+                                Speak(habitacionActual.puertas[i].descript_false);
+                            }
+                        }
+                    }
+                    if (!mover)
+                    {
+                        Speak("Ahí no hay puerta, intenta moverte hacia otra dirección");
+                    }
                     break;
                 case Palabras.Adelante:
-                    MoverJugador(0, 1);
+                    mover = false;
+                    for (int i = 0; i < habitacionActual.puertas.Length; i++)
+                    {
+                        if (habitacionActual.puertas[i].pos == 3)
+                        {
+                            if (switches[habitacionActual.puertas[i].switche])
+                            {
+                                Speak(habitacionActual.puertas[i].descript_true);
+                                yield return new WaitForSeconds(4f);
+                                MoverJugador(0, 1);
+                                mover = true;
+                                break;
+                            }
+                            else
+                            {
+                                Speak(habitacionActual.puertas[i].descript_false);
+                            }
+                        }
+                    }
+                    if (!mover)
+                    {
+                        Speak("Ahí no hay puerta, intenta moverte hacia otra dirección");
+                    }
                     break;
                 case Palabras.Atras:
-                    MoverJugador(0, -1);
+                    mover = false;
+                    for (int i = 0; i < habitacionActual.puertas.Length; i++)
+                    {
+                        if (habitacionActual.puertas[i].pos == 0)
+                        {
+                            if (switches[habitacionActual.puertas[i].switche])
+                            {
+                                Speak(habitacionActual.puertas[i].descript_true);
+                                yield return new WaitForSeconds(4f);
+                                MoverJugador(0, -1);
+                                mover = true;
+                                break;
+                            }
+                            else
+                            {
+                                Speak(habitacionActual.puertas[i].descript_false);
+                            }
+                        }
+                    }
+                    if (!mover)
+                    {
+                        Speak("Ahí no hay puerta, intenta moverte hacia otra dirección");
+                    }
                     break;
                 default:
                     break;
             }
+
 
             palabrasDetectadas = Palabras.Nada;
             yield return new WaitForSeconds(0.5f);
@@ -151,6 +231,19 @@ public class GameManager : MonoBehaviour
         }
         return null;
     }
+    public void CrearJSON()
+    {
+        if (campana != null)
+        {
+            string json = JsonUtility.ToJson(campana, true);
+            Debug.Log(json);
+        }
+        else
+        {
+            Debug.LogWarning("Campaña no cargada. No se puede crear JSON.");
+        }
+    }
+
 
     void Speak(string text)
     {

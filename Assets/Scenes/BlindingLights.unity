@@ -261,6 +261,9 @@ MonoBehaviour:
     habitaciones: []
   prRoom: {fileID: 1039085239497599993, guid: b9bc85b33ab769f489d88440f85d5c84, type: 3}
   palabrasDetectadas: 0
+  js: 
+  switches: 
+  apiUrl: http://localhost/get_level_data.php?campaign_id=
 --- !u!4 &646975046
 Transform:
   m_ObjectHideFlags: 0
