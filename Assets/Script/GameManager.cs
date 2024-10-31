@@ -4,22 +4,21 @@ using UnityEngine;
 using UnityEngine.Networking;
 using SpeechLib;
 
-
 public class GameManager : MonoBehaviour
 {
     public static GameManager gameManager;
     public Campaign campana;
     public GameObject prRoom;
-    public string js;
-    public bool[] switches;
 
     public Palabras palabrasDetectadas;
     private Habitacion habitacionActual;
+    public string js;
+    public bool[] switches;
 
     private Dictionary<int, bool> habitacionesVisitadas = new Dictionary<int, bool>(); // Diccionario para rastrear visitas
 
     public SpVoice voice = new SpVoice();
-    private string apiUrl = "http://localhost/get_level_data.php?campaign_id=";
+    public string apiUrl = "http://localhost/get_level_data.php?campaign_id=";
 
     private void Start()
     {
@@ -27,16 +26,11 @@ public class GameManager : MonoBehaviour
         {
             gameManager = this;
         }
-
         switches = new bool[20];
         switches[0] = true;
 
-        StartCoroutine(CargarCampana(1));
-    }
-
-    public void CrearJSON()
-    {
-        Debug.Log(JsonUtility.ToJson(campana));
+        int campaignId = 1; // Ejemplo: cargar la campaña 1
+        StartCoroutine(CargarCampana(campaignId));
     }
 
     IEnumerator CargarCampana(int campaignId)
@@ -58,10 +52,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator Jugando()
     {
-        // Deserializar la campaña desde JSON
-        campana = JsonUtility.FromJson<Campaign>(js);
-
-        // Instanciar solo habitaciones con descript_large
+        // Instanciar habitaciones con descript_large
         foreach (var habitacion in campana.habitaciones)
         {
             if (!string.IsNullOrEmpty(habitacion.descript_large))
@@ -83,18 +74,15 @@ public class GameManager : MonoBehaviour
 
         palabrasDetectadas = Palabras.Nada;
 
-        // Ciclo while original proporcionado por ti
         while (true)
         {
             print("Ahora si, pregunta");
-            bool mover = false;
-
             switch (palabrasDetectadas)
             {
                 case Palabras.Nada:
                     break;
                 case Palabras.Izquierda:
-                    mover = false;
+                    bool mover = false;
                     for (int i = 0; i < habitacionActual.puertas.Length; i++)
                     {
                         if (habitacionActual.puertas[i].pos == 2)
@@ -197,6 +185,7 @@ public class GameManager : MonoBehaviour
                     break;
             }
 
+
             palabrasDetectadas = Palabras.Nada;
             yield return new WaitForSeconds(0.5f);
         }
@@ -242,6 +231,19 @@ public class GameManager : MonoBehaviour
         }
         return null;
     }
+    public void CrearJSON()
+    {
+        if (campana != null)
+        {
+            string json = JsonUtility.ToJson(campana, true);
+            Debug.Log(json);
+        }
+        else
+        {
+            Debug.LogWarning("Campaña no cargada. No se puede crear JSON.");
+        }
+    }
+
 
     void Speak(string text)
     {
@@ -256,5 +258,4 @@ public enum Palabras
     Derecha,
     Adelante,
     Atras,
-    Llave
 }
