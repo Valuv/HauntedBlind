@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
         }
         switches = new bool[20];
         switches[0] = true;
-        IniciarSwitches();
+        //IniciarSwitches();
 
         int campaignId = 1; // Ejemplo: cargar la campaña 1
         StartCoroutine(CargarCampana(campaignId));
@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
     {
         UnityWebRequest request = UnityWebRequest.Get(apiUrl + campaignId);
         yield return request.SendWebRequest();
+
+        print(apiUrl + campaignId);
 
         if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
         {
@@ -109,7 +111,7 @@ public class GameManager : MonoBehaviour
                     }
                     break;
                 case Palabras.Derecha:
-                    mover = false;
+                    mover = true;
                     for (int i = 0; i < habitacionActual.puertas.Length; i++)
                     {
                         if (habitacionActual.puertas[i].pos == 1)
@@ -259,7 +261,7 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < campana.habitaciones.Length; i++)
         {
-
+            
             if (habitacionActual.objetos.Length > 0)
             {
                 

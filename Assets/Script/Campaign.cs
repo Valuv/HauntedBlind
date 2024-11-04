@@ -29,6 +29,7 @@ public class Habitacion
     public Puerta[] puertas;
     public Objeto[] objetos;
 }
+
 [System.Serializable]
 public class Campaign
 {
@@ -40,6 +41,7 @@ public class Campaign
     public Habitacion[] habitaciones;
 }
 
+[System.Serializable]
 public class Objeto
 {
     public int id;
