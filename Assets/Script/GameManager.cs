@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager gameManager;
     public Campaign campana;
+    private Habitacion habitacion;
     public GameObject prRoom;
 
     public Palabras palabrasDetectadas;
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviour
         }
         switches = new bool[20];
         switches[0] = true;
+        IniciarSwitches();
 
         int campaignId = 1; // Ejemplo: cargar la campaña 1
         StartCoroutine(CargarCampana(campaignId));
@@ -181,6 +183,9 @@ public class GameManager : MonoBehaviour
                         Speak("Ahí no hay puerta, intenta moverte hacia otra dirección");
                     }
                     break;
+                case Palabras.Examinar:
+                    Objetos();
+                    break;
                 default:
                     break;
             }
@@ -249,7 +254,46 @@ public class GameManager : MonoBehaviour
     {
         voice.Speak(text, SpeechVoiceSpeakFlags.SVSFlagsAsync | SpeechVoiceSpeakFlags.SVSFPurgeBeforeSpeak);
     }
+
+    public void Objetos()
+    {
+        for (int i = 0; i < campana.habitaciones.Length; i++)
+        {
+
+            if (habitacionActual.objetos.Length > 0)
+            {
+                
+                for (int j = 0; j < habitacionActual.objetos.Length; j++)
+                {
+                    Speak(habitacionActual.objetos[j].descript);
+                    switches[habitacionActual.objetos[j].puerta_id] = true;
+                    //Es solo un objeto pero se especifica el id. 
+                }
+            }
+
+        }
+    }
+
+    public void IniciarSwitches()
+    {
+
+        foreach (var habitacion in campana.habitaciones)
+        {
+            foreach (Puerta puerta in habitacion.puertas)
+            {
+                if (puerta.switche == 1)
+                {
+                    switches[puerta.id] = true;
+                }
+                else
+                {
+                    switches[puerta.id] = false;
+                }
+            }
+        }
+    }
 }
+
 
 public enum Palabras
 {
@@ -258,4 +302,5 @@ public enum Palabras
     Derecha,
     Adelante,
     Atras,
+    Examinar
 }
