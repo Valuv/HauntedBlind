@@ -27,7 +27,7 @@ public class Habitacion
     public string descript_short;
 
     public Puerta[] puertas;
-    public AccionesJugador[] acciones;
+    public Objeto[] objetos;
 }
 [System.Serializable]
 public class Campaign
@@ -46,13 +46,8 @@ public class Objeto
     public int habitacion_id;
     public string nombre;
     public string descript;
+    public int puerta_id;
     
 }
 
-public class AccionesJugador
-{
-    public int id;
-    public string descript;
 
-    public Objeto[] objeto;
-}

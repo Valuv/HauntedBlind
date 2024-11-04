@@ -24,8 +24,10 @@ public class Stt : MonoBehaviour
         wordToAction.Add("derecha", Rigth);
         wordToAction.Add("rojo", Red);
         wordToAction.Add("adelante", Up);
-        wordToAction.Add("atars", Down);
-        wordToAction.Add("coger llave", Key);
+        wordToAction.Add("atras", Down);
+        wordToAction.Add("examinar", Examinar);
+
+
 
         keywordRecognizer = new KeywordRecognizer(wordToAction.Keys.ToArray());
         keywordRecognizer.OnPhraseRecognized += WordRecognized;
@@ -57,9 +59,9 @@ public class Stt : MonoBehaviour
         GetComponent<Renderer>().material.SetColor("_Color", Color.red);
     }
 
-    private void Key()
+    private void Examinar()
     {
-        GetComponent<Renderer>().material.SetColor("_Color", Color.green);
+        GameManager.gameManager.palabrasDetectadas = Palabras.Examinar;
     }
 
     private void Left()
