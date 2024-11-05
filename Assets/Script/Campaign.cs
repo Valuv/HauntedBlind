@@ -25,6 +25,8 @@ public class Habitacion
     public int campaign_id;
     public string descript_large;
     public string descript_short;
+    public bool start;
+    public bool final;
 
     public Puerta[] puertas;
     public Objeto[] objetos;

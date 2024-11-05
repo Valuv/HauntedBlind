@@ -29,10 +29,12 @@ public class GameManager : MonoBehaviour
         }
         switches = new bool[20];
         switches[0] = true;
-        //IniciarSwitches();
+        
+        
 
         int campaignId = 1; // Ejemplo: cargar la campaña 1
         StartCoroutine(CargarCampana(campaignId));
+        
     }
 
     IEnumerator CargarCampana(int campaignId)
@@ -51,6 +53,7 @@ public class GameManager : MonoBehaviour
             string jsonResponse = request.downloadHandler.text;
             campana = JsonUtility.FromJson<Campaign>(jsonResponse);
             StartCoroutine(Jugando());
+            IniciarSwitches();
         }
     }
 
@@ -86,15 +89,15 @@ public class GameManager : MonoBehaviour
                 case Palabras.Nada:
                     break;
                 case Palabras.Izquierda:
-                    bool mover = false;
+                    bool mover = true;
                     for (int i = 0; i < habitacionActual.puertas.Length; i++)
                     {
                         if (habitacionActual.puertas[i].pos == 2)
                         {
-                            if (switches[habitacionActual.puertas[i].switche])
+                            if (switches[habitacionActual.puertas[i].id] == true)
                             {
                                 Speak(habitacionActual.puertas[i].descript_true);
-                                yield return new WaitForSeconds(4f);
+                                yield return new WaitForSeconds(10f);
                                 MoverJugador(-1, 0);
                                 mover = true;
                                 break;
@@ -116,10 +119,10 @@ public class GameManager : MonoBehaviour
                     {
                         if (habitacionActual.puertas[i].pos == 1)
                         {
-                            if (switches[habitacionActual.puertas[i].switche])
+                            if (switches[habitacionActual.puertas[i].id] == true)
                             {
                                 Speak(habitacionActual.puertas[i].descript_true);
-                                yield return new WaitForSeconds(4f);
+                                yield return new WaitForSeconds(10f);
                                 MoverJugador(1, 0);
                                 mover = true;
                                 break;
@@ -136,15 +139,16 @@ public class GameManager : MonoBehaviour
                     }
                     break;
                 case Palabras.Adelante:
-                    mover = false;
+                    mover = true;
                     for (int i = 0; i < habitacionActual.puertas.Length; i++)
                     {
                         if (habitacionActual.puertas[i].pos == 3)
                         {
-                            if (switches[habitacionActual.puertas[i].switche])
+                            //print(switches[habitacionActual.puertas[i]]);
+                            if (switches[habitacionActual.puertas[i].id])
                             {
                                 Speak(habitacionActual.puertas[i].descript_true);
-                                yield return new WaitForSeconds(4f);
+                                yield return new WaitForSeconds(10f);
                                 MoverJugador(0, 1);
                                 mover = true;
                                 break;
@@ -161,15 +165,15 @@ public class GameManager : MonoBehaviour
                     }
                     break;
                 case Palabras.Atras:
-                    mover = false;
+                    mover = true;
                     for (int i = 0; i < habitacionActual.puertas.Length; i++)
                     {
                         if (habitacionActual.puertas[i].pos == 0)
                         {
-                            if (switches[habitacionActual.puertas[i].switche])
+                            if (switches[habitacionActual.puertas[i].id] == true)
                             {
                                 Speak(habitacionActual.puertas[i].descript_true);
-                                yield return new WaitForSeconds(4f);
+                                yield return new WaitForSeconds(10f);
                                 MoverJugador(0, -1);
                                 mover = true;
                                 break;
@@ -209,16 +213,25 @@ public class GameManager : MonoBehaviour
         {
             habitacionActual = nuevaHabitacion;
 
-            if (habitacionesVisitadas.ContainsKey(habitacionActual.id))
+            if(habitacionActual.final == true)
+            {
+                Speak(campana.texto_victoria);
+            }
+
+            if (habitacionesVisitadas.ContainsKey(habitacionActual.id) && habitacionActual.final == false)
             {
                 // Ya fue visitada
                 Speak(habitacionActual.descript_short);
             }
             else
             {
-                // Primera vez
-                Speak(habitacionActual.descript_large);
-                habitacionesVisitadas[habitacionActual.id] = true;
+                if(habitacionActual.final == false)
+                {
+                    // Primera vez
+                    Speak(habitacionActual.descript_large);
+                    habitacionesVisitadas[habitacionActual.id] = true;
+                }
+                
             }
         }
         else
@@ -285,11 +298,11 @@ public class GameManager : MonoBehaviour
             {
                 if (puerta.switche == 1)
                 {
-                    switches[puerta.id] = true;
+                    switches[puerta.id] = false;
                 }
                 else
                 {
-                    switches[puerta.id] = false;
+                    switches[puerta.id] = true;
                 }
             }
         }

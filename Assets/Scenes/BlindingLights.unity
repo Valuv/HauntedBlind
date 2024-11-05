@@ -178,6 +178,8 @@ MonoBehaviour:
       campaign_id: 0
       descript_large: 
       descript_short: 
+      start: 0
+      final: 0
       puertas:
       - id: 0
         pos: 0
@@ -544,7 +546,7 @@ MonoBehaviour:
     audioFile: {fileID: 8300000, guid: 65cf7b81fa38f42478e6d7ec7ed09d09, type: 3}
     volume: 0.5
     pitch: 1
-    loop: 0
+    loop: 1
     source: {fileID: 0}
 --- !u!4 &1279801238
 Transform:
