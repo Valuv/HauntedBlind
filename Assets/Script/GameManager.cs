@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
                         {
                             if (switches[habitacionActual.puertas[i].id] == true)
                             {
-                                if(habitacionActual.puertas[i].descript_true != null)
+                                if(habitacionActual.puertas[i].switche == 1)
                                 {
                                     Speak(habitacionActual.puertas[i].descript_true);
                                     yield return new WaitForSeconds(12f);
@@ -124,7 +124,7 @@ public class GameManager : MonoBehaviour
                         {
                             if (switches[habitacionActual.puertas[i].id] == true)
                             {
-                                if(habitacionActual.puertas[i].descript_true != null)
+                                if(habitacionActual.puertas[i].switche == 1)
                                 {
                                     Speak(habitacionActual.puertas[i].descript_true);
                                     yield return new WaitForSeconds(12f);
@@ -153,8 +153,9 @@ public class GameManager : MonoBehaviour
                             //print(switches[habitacionActual.puertas[i]]);
                             if (switches[habitacionActual.puertas[i].id])
                             {
-                                if(habitacionActual.puertas[i].descript_true != null)
+                                if(habitacionActual.puertas[i].switche == 1)
                                 {
+                                    print("Entro igual");
                                     Speak(habitacionActual.puertas[i].descript_true);
                                     yield return new WaitForSeconds(12f);
                                 }
@@ -181,7 +182,7 @@ public class GameManager : MonoBehaviour
                         {
                             if (switches[habitacionActual.puertas[i].id] == true)
                             {
-                                if(habitacionActual.puertas[i].descript_true != null)
+                                if(habitacionActual.puertas[i].switche == 1)
                                 {
                                     Speak(habitacionActual.puertas[i].descript_true);
                                     yield return new WaitForSeconds(12f);

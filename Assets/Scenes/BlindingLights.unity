@@ -163,7 +163,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 646975044}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1559b835cdfd4e4fa127f7d40439d92, type: 3}
+  m_Script: {fileID: 11500000, guid: cfcc76283c7ffcd44990f25f55725717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   campana:
@@ -172,11 +172,11 @@ MonoBehaviour:
     descript: 
     texto_victoria: 
     habitaciones: []
-  prRoom: {fileID: 0}
+  prRoom: {fileID: 1039085239497599993, guid: 256e61da4b57d874786cdf83fa3127aa, type: 3}
   palabrasDetectadas: 0
   js: 
   switches: 
-  apiUrl: http://localhost/get_level_data.php?campaign_id=
+  apiUrl: http://localhost:54/get_level_data.php?campaign_id=
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,7 +332,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3e4c88db6e9d68b40978529979223d9a, type: 2}
+  - {fileID: 2100000, guid: 8958f6e21adcf3d4cb55557d1e110b36, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -386,7 +386,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 738859751}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28655a6f1216ac84c83867b3bce61c20, type: 3}
+  m_Script: {fileID: 11500000, guid: 1eab35b7243b60248b64b69d762e8ad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &963194225
@@ -491,7 +491,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 598e837b40e1c3c42976128c5e947b83, type: 3}
+  m_Script: {fileID: 11500000, guid: faa7eb66cf17d5c449d33034797799e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sayit: Que bonitos ojos tienes, quiero chuparte el pepe
@@ -521,10 +521,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1279801236}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7704e731bb9252b48abd65077a761f9a, type: 3}
+  m_Script: {fileID: 11500000, guid: d6e247bdcbb94da4bb7e277b428ae8d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audios: []
+  audios:
+  - name: Musica
+    audioFile: {fileID: 8300000, guid: 65cf7b81fa38f42478e6d7ec7ed09d09, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
 --- !u!4 &1279801238
 Transform:
   m_ObjectHideFlags: 0

@@ -163,7 +163,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 646975044}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7593caefa53dc62498c36f7e52adb2c5, type: 3}
+  m_Script: {fileID: 11500000, guid: 1a3c9d2dfaa0fb648a900adbd5bc270e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   palabrasDetectadas: 0
@@ -376,7 +376,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 738859751}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd214755d4132b7488b7555035c6aa9f, type: 3}
+  m_Script: {fileID: 11500000, guid: 68bc30efe07c51f43a8e0b3acfbe095c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   menuManager: {fileID: 646975047}
@@ -482,7 +482,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 598e837b40e1c3c42976128c5e947b83, type: 3}
+  m_Script: {fileID: 11500000, guid: faa7eb66cf17d5c449d33034797799e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sayit: Que bonitos ojos tienes, quiero chuparte el pepe
