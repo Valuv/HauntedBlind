@@ -96,8 +96,11 @@ public class GameManager : MonoBehaviour
                         {
                             if (switches[habitacionActual.puertas[i].id] == true)
                             {
-                                Speak(habitacionActual.puertas[i].descript_true);
-                                yield return new WaitForSeconds(10f);
+                                if(habitacionActual.puertas[i].descript_true != null)
+                                {
+                                    Speak(habitacionActual.puertas[i].descript_true);
+                                    yield return new WaitForSeconds(12f);
+                                }
                                 MoverJugador(-1, 0);
                                 mover = true;
                                 break;
@@ -121,8 +124,11 @@ public class GameManager : MonoBehaviour
                         {
                             if (switches[habitacionActual.puertas[i].id] == true)
                             {
-                                Speak(habitacionActual.puertas[i].descript_true);
-                                yield return new WaitForSeconds(10f);
+                                if(habitacionActual.puertas[i].descript_true != null)
+                                {
+                                    Speak(habitacionActual.puertas[i].descript_true);
+                                    yield return new WaitForSeconds(12f);
+                                }
                                 MoverJugador(1, 0);
                                 mover = true;
                                 break;
@@ -147,8 +153,11 @@ public class GameManager : MonoBehaviour
                             //print(switches[habitacionActual.puertas[i]]);
                             if (switches[habitacionActual.puertas[i].id])
                             {
-                                Speak(habitacionActual.puertas[i].descript_true);
-                                yield return new WaitForSeconds(10f);
+                                if(habitacionActual.puertas[i].descript_true != null)
+                                {
+                                    Speak(habitacionActual.puertas[i].descript_true);
+                                    yield return new WaitForSeconds(12f);
+                                }
                                 MoverJugador(0, 1);
                                 mover = true;
                                 break;
@@ -172,8 +181,11 @@ public class GameManager : MonoBehaviour
                         {
                             if (switches[habitacionActual.puertas[i].id] == true)
                             {
-                                Speak(habitacionActual.puertas[i].descript_true);
-                                yield return new WaitForSeconds(10f);
+                                if(habitacionActual.puertas[i].descript_true != null)
+                                {
+                                    Speak(habitacionActual.puertas[i].descript_true);
+                                    yield return new WaitForSeconds(12f);
+                                }
                                 MoverJugador(0, -1);
                                 mover = true;
                                 break;

@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: d369a8c8c8713d34cae10633f7e275e5
+  - enabled: 1
+    path: Assets/Scenes/BlindingLights.unity
+    guid: 5c9fe80891d72dc46a0a2932b18f7b60
   m_configObjects: {}
